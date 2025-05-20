@@ -1,21 +1,51 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime
 from django.http import HttpResponse 
 from django.views.generic import ListView
 from .models import Reservation
 from .forms import ReservationForm
+from django.contrib import messages
 
 # Create your views here.
 
+
 def index(request):
     return render(request, 'booking/index.html')
+
+
+def make_booking(request):
+    print("DEBUG: make_booking view called")
+    print(f"Method: {request.method}")
+    print(f"POST data: {request.POST}")
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        date = request.POST.get('date')
+        time = request.POST.get('time')
+        guests = request.POST.get('guests')
+
+        print(f"Booking confirmed: {name}, {date}, {time}, {guests}")
+
+        if name and date and time and guests:
+            Reservation.objects.create(
+                name=name,
+                date=date,
+                time=time,
+                guests=guests
+            )
+            messages.success(request, 'Confirmed reservation')
+            return redirect('booking:reservation_list')
+    
+    messages.error(request, 'something went wrong, please try again')
+    return redirect('booking:reservation_list')
+
+        
 
 class ReservationListView(ListView):
     model = Reservation
     template_name = 'booking/reservation_list.html'
     context_object_name = 'reservations'
-
-
+    
     def get_queryset(self):
         """
     Display available reservation times for a selected date.
