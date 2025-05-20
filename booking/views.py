@@ -3,7 +3,7 @@ from datetime import datetime
 from django.http import HttpResponse 
 from django.views.generic import ListView
 from .models import Reservation
-
+from .forms import ReservationForm
 
 # Create your views here.
 class ReservationListView(ListView):
