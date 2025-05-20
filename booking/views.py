@@ -6,6 +6,10 @@ from .models import Reservation
 from .forms import ReservationForm
 
 # Create your views here.
+
+def index(request):
+    return render(request, 'booking/index.html')
+
 class ReservationListView(ListView):
     model = Reservation
     template_name = 'booking/reservation_list.html'
