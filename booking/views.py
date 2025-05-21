@@ -14,17 +14,12 @@ def index(request):
 
 
 def make_booking(request):
-    print("DEBUG: make_booking view called")
-    print(f"Method: {request.method}")
-    print(f"POST data: {request.POST}")
-
+   
     if request.method == 'POST':
         name = request.POST.get('name')
         date = request.POST.get('date')
         time = request.POST.get('time')
         guests = request.POST.get('guests')
-
-        print(f"Booking confirmed: {name}, {date}, {time}, {guests}")
 
         if name and date and time and guests:
             Reservation.objects.create(
@@ -33,13 +28,12 @@ def make_booking(request):
                 time=time,
                 guests=guests
             )
-            messages.success(request, 'Confirmed reservation')
+            messages.success(request, f"For {name} on {date} at {time} for {guests} guests.")
             return redirect('booking:reservation_list')
     
     messages.error(request, 'something went wrong, please try again')
     return redirect('booking:reservation_list')
 
-        
 
 class ReservationListView(ListView):
     model = Reservation
