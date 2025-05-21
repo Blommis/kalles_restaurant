@@ -14,7 +14,8 @@ from pathlib import Path
 import os
 import dj_database_url
 if os.path.isfile('env.py'): # This file does not exist on the deployed version
-    import env 
+    import env
+    
 
 
 
