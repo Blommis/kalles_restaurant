@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
 
 
 <h1>Available Times</h1>
@@ -13,7 +14,8 @@
 {% if reservations %}
     <h2>Available Times for {{ .reservation.date }}:</h2>
     <form method="post" action="{% url 'booking:make_booking' %}">
-    {% csrf_token %}
+        
+        {% csrf_token %}
     <input type="date" name="date" value="{{ date }}">
     {% for time in reservations %}
         <input type="radio" name="time" value="{{ time }}" required>{{ time }}
