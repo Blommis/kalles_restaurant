@@ -7,25 +7,24 @@
 
 <form method="get" action="{% url 'booking:reservation_list' %}">
     <label for="date">Select Date:</label>
-    <input type="date" name="date" value="{{ date }}" required>
+    <input type="date" name="date" value="{{ date }}" min="{{ today }}" required>
     <button type="submit">Show Available Times</button>
 </form>
 
 {% if reservations %}
-    <h2>Available Times for {{ reservation.date }}:</h2>
+    <h2>Available Times for {{ selected_date }}:</h2>
+    
     <form method="post" action="{% url 'booking:make_booking' %}">
         
         {% csrf_token %}
-    <input type="date" name="date" value="{{ date }}">
+    <input type="hidden" name="date" value="{{ selected_date }}">
     {% for time in reservations %}
         <input type="radio" name="time" value="{{ time }}" required>{{ time }}
     {% endfor %}
-    <input type="text" name="name" id="name" required>
-    <input type="number" name="guests" min="1" max="10" required>
+    <input type="text" name="name" id="name" placeholder="Your Name" required>
+    <input type="number" name="guests" min="1" max="10" placeholder="Number of Guests" required>
     <button type="submit">Book Now</button>
     </form>
-{% else %}
-    <p>No available times for the selected date.</p>
 {% endif %}
 
   {% if messages %}
@@ -36,6 +35,7 @@
         <span {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</span><br>
       {% endfor %}
     </p>
+    
   </div>
 {% endif %}
 
