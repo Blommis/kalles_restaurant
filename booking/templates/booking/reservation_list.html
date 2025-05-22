@@ -3,19 +3,19 @@
 {% load static %}
 
 
-<h1>Available Times</h1>
 
-<form method="get" action="{% url 'booking:reservation_list' %}">
+
+<form method="get" action="{% url 'booking:reservation_list' %}" id="reserve-form">
+    <h1>Reserve a table</h1>
     <label for="date">Select Date:</label>
     <input type="date" name="date" value="{{ date }}" min="{{ today }}" required>
     <button type="submit">Show Available Times</button>
 </form>
 
 {% if reservations %}
-    <h2>Available Times for {{ selected_date }}:</h2>
     
     <form method="post" action="{% url 'booking:make_booking' %}">
-        
+        <h2>Available Times for {{ selected_date }}:</h2>
         {% csrf_token %}
     <input type="hidden" name="date" value="{{ selected_date }}">
     {% for time in reservations %}
@@ -38,6 +38,7 @@
 
     <!-- Cancel reservation form -->
     <form action="{% url 'booking:cancel_reservation' %}" method="POST">
+        <p>Cancel your reservation? No worries, enter your booking reference down below  or make a call to 123456789 </p>
       {% csrf_token %}
       <input type="text" name="booking_code" placeholder="Enter your booking reference" required>
       <button type="submit">Cancel table</button>

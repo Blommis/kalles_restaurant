@@ -28,6 +28,68 @@ h1, h2, h3{
 }
 
 
+
+/*Form styling*/
+#reserve-form{
+    margin-top: 100px;
+}
+form {
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form input[type="radio"],
+form button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form input[type="radio"] {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
+}
+
+form button {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+
+.reservation-message {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #e6ffed;
+    border: 1px solid #4CAF50;
+    border-radius: 8px;
+    color: #2b7a0b;
+}
+
+.reservation-message input[type="text"] {
+    margin-top: 10px;
+}
+
+
 /*Footer*/
 #contact {
   list-style: none;
