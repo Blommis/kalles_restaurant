@@ -15,6 +15,7 @@ def index(request):
 
 def make_booking(request):
     if request.method == 'POST':
+        booking_code = request.POST.get('booking_code')
         name = request.POST.get('name')
         date_str = request.POST.get('date')
         time = request.POST.get('time')
@@ -33,13 +34,13 @@ def make_booking(request):
             return redirect('booking:reservation_list')
 
         if name and time and guests:
-            Reservation.objects.create(
+            reservation = Reservation.objects.create(
                 name=name,
                 date=date_obj,
                 time=time,
                 guests=guests
             )
-            messages.success(request, f"For {name} on {date_str} at {time} for {guests} guests.")
+            messages.success(request, f"For {name} on {date_str} at {time} for {guests} guests. Your booking reference is: {reservation.booking_code}")
             return redirect('booking:reservation_list')
 
     messages.error(request, 'Something went wrong, please try again.')
@@ -91,3 +92,16 @@ class ReservationListView(ListView):
         context['fully_booked_dates'] = [res['date'].isoformat() for res in full_booked]
 
         return context
+
+
+def cancel_reservation(request):
+    if request.method == 'POST':
+        reservationnumber = request.POST.get('booking_code')
+        try:
+            reservation = Reservation.objects.get(booking_code=reservationnumber)
+            reservation.delete()
+            messages.success(request, "Reservation has been canceled")
+        except Reservation.DoesNotExist:
+            messages.error(request, "No reservation were found with the reference number")
+
+        return redirect('booking:reservation_list')

@@ -27,7 +27,7 @@
     </form>
 {% endif %}
 
-  {% if messages %}
+ {% if messages %}
   <div class="reservation-message">
     <h3>Confirmed reservation</h3>
     <p class="messages">
@@ -35,8 +35,15 @@
         <span {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</span><br>
       {% endfor %}
     </p>
-    
+
+    <!-- Cancel reservation form -->
+    <form action="{% url 'booking:cancel_reservation' %}" method="POST">
+      {% csrf_token %}
+      <input type="text" name="booking_code" placeholder="Enter your booking reference" required>
+      <button type="submit">Cancel table</button>
+    </form>
   </div>
 {% endif %}
+
 
 {% endblock %}
