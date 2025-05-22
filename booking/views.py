@@ -87,9 +87,7 @@ class ReservationListView(ListView):
         context['today'] = today.isoformat()
         context['selected_date'] = self.selected_date
 
-        full_booked = Reservation.objects.values('date').annotate(count=Count('id')).filter(count__gte=3)
+        full_booked = Reservation.objects.values('date').annotate(count=Count('booking_code')).filter(count__gte=3)
         context['fully_booked_dates'] = [res['date'].isoformat() for res in full_booked]
 
         return context
-
-
