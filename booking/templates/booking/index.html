@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!--header-->
     <div class="container text-center mt-5">
         <h1>Welcome to Kalle's</h1>
         <a href="{% url 'booking:reservation_list' %}">
@@ -8,7 +9,126 @@
         </a>
     </div>
 
+<!--main-->
+<main>
+  <section id="menu">
+    <h1> Menu</h1>
+  <div class="menu-list">
+    <ul class="menu-items">
+  <li>
+    <h2>Pasta</h2>
+    <p>Spaghetti Carbonara <span class="price">€12.50</span></p>
+    <p class="ingredients">Eggs, pancetta, parmesan, black pepper</p>
 
+    <p>Tagliatelle Alfredo <span class="price">€11.90</span></p>
+    <p class="ingredients">Cream, butter, parmesan</p>
+
+    <p>Penne Arrabbiata <span class="price">€10.50</span></p>
+    <p class="ingredients">Tomato, garlic, chili, parsley</p>
+
+    <p>Lasagna Bolognese <span class="price">€13.00</span></p>
+    <p class="ingredients">Pasta sheets, beef ragù, béchamel, cheese</p>
+
+    <p>Ravioli Ricotta e Spinaci <span class="price">€12.20</span></p>
+    <p class="ingredients">Ricotta cheese, spinach, sage butter</p>
+  </li>
+
+  <li>
+    <h2>Pizza</h2>
+    <p>Margherita <span class="price">€9.50</span></p>
+    <p class="ingredients">Tomato sauce, mozzarella, basil</p>
+
+    <p>Diavola <span class="price">€11.80</span></p>
+    <p class="ingredients">Spicy salami, mozzarella, tomato sauce</p>
+
+    <p>Quattro Stagioni <span class="price">€12.50</span></p>
+    <p class="ingredients">Mushrooms, ham, artichokes, olives</p>
+
+    <p>Prosciutto e Funghi <span class="price">€11.90</span></p>
+    <p class="ingredients">Ham, mushrooms, tomato sauce, mozzarella</p>
+
+    <p>Vegetariana <span class="price">€10.70</span></p>
+    <p class="ingredients">Grilled vegetables, tomato sauce, mozzarella</p>
+  </li>
+
+  <li>
+    <h2>Burgers</h2>
+    <p>Classic Cheeseburger <span class="price">€10.90</span></p>
+    <p class="ingredients">Beef patty, cheddar, lettuce, tomato, pickles</p>
+
+    <p>Bacon BBQ Burger <span class="price">€12.50</span></p>
+    <p class="ingredients">Beef patty, bacon, BBQ sauce, cheese, onion</p>
+
+    <p>Veggie Burger <span class="price">€10.20</span></p>
+    <p class="ingredients">Grilled veggie patty, avocado, lettuce, tomato</p>
+
+    <p>Chicken Burger <span class="price">€11.00</span></p>
+    <p class="ingredients">Grilled chicken breast, mayo, lettuce, tomato</p>
+
+    <p>Double Smash Burger <span class="price">€13.40</span></p>
+    <p class="ingredients">Two beef patties, cheese, pickles, special sauce</p>
+  </li>
+
+  <li>
+    <h2>Drinks</h2>
+    <p>Coca-Cola (33cl) <span class="price">€2.50</span></p>
+    <p class="ingredients">Chilled classic cola</p>
+
+    <p>Homemade Lemonade <span class="price">€3.50</span></p>
+    <p class="ingredients">Fresh lemon juice, sugar, sparkling water</p>
+
+    <p>Espresso <span class="price">€2.00</span></p>
+    <p class="ingredients">Rich Italian-style coffee</p>
+
+    <p>Glass of Red Wine <span class="price">€4.80</span></p>
+    <p class="ingredients">Local red wine, served at room temperature</p>
+
+    <p>Craft Beer (50cl) <span class="price">€5.50</span></p>
+    <p class="ingredients">Locally brewed, various styles</p>
+  </li>
+
+  <li>
+    <h2>Sides</h2>
+    <p>French Fries <span class="price">€3.20</span></p>
+    <p class="ingredients">Golden, crispy potatoes with sea salt</p>
+
+    <p>Garlic Bread <span class="price">€3.80</span></p>
+    <p class="ingredients">Toasted bread with garlic butter</p>
+
+    <p>Side Salad <span class="price">€4.00</span></p>
+    <p class="ingredients">Mixed greens, tomatoes, vinaigrette</p>
+
+    <p>Mozzarella Sticks <span class="price">€5.00</span></p>
+    <p class="ingredients">Breaded mozzarella, marinara dip</p>
+
+    <p>Onion Rings <span class="price">€4.50</span></p>
+    <p class="ingredients">Crispy battered onion rings</p>
+  </li>
+
+  <li>
+    <h2>Desserts</h2>
+    <p>Tiramisu <span class="price">€5.80</span></p>
+    <p class="ingredients">Coffee-soaked ladyfingers, mascarpone cream</p>
+
+    <p>Chocolate Fondant <span class="price">€6.20</span></p>
+    <p class="ingredients">Molten chocolate cake, vanilla ice cream</p>
+
+    <p>Panna Cotta <span class="price">€5.00</span></p>
+    <p class="ingredients">Cream dessert with berry coulis</p>
+
+    <p>Gelato (2 scoops) <span class="price">€4.50</span></p>
+    <p class="ingredients">Italian-style ice cream, assorted flavors</p>
+
+    <p>Apple Crumble <span class="price">€5.90</span></p>
+    <p class="ingredients">Baked apples, cinnamon, crunchy topping</p>
+  </li>
+</ul>
+
+
+  </div>
+</section>
+
+</main>
   <!-- Footer / contact section -->
     <!-- mt-auto added to push footer to the bottom of the page -->
  <footer id="footer" class="mt-auto">

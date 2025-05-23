@@ -27,8 +27,41 @@ h1, h2, h3{
     font-size: 1.3rem;
 }
 
+/*Menu*/
+#menu h1{
+    padding-top: 50px;
+    text-align: center;
+}
+.menu-items {
+  list-style: none;
+  padding-left: 10px;
+  margin: 0;
+  display: grid;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.dish{
+    font-family: var(--secondary-font);
+}
+.menu-items li {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #fffbee;
+}
 
+.price {
+  color: red;
+  font-weight: bold;
+}
 
+.ingredients {
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
 /*Form styling*/
 #reserve-form{
     margin-top: 100px;
@@ -117,4 +150,15 @@ form button:hover {
 
 #socialmedia i{
     color: red;
+}
+
+@media screen and (min-width: 400px) and (max-width: 768px) {
+  .menu-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 768px) {
+  .menu-items {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
