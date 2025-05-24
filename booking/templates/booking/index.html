@@ -2,13 +2,17 @@
 
 {% block content %}
 <!--header-->
+  <section id="headerindex">
     <div class="container text-center mt-5">
-        <h1>Welcome to Kalle's</h1>
+      
+        <p class ="introduction-text">Welcome to a dining experience like no other.
+           Here, great food meets a cozy atmosphere and personal service – 
+           all to make you feel right at home. Book your table today!</p>
         <a href="{% url 'booking:reservation_list' %}">
-            <button class="btn btn-primary mt-3">Book a table</button>
+            <button class="btn btn-success btn-lg mt-3">Book a table</button>
         </a>
     </div>
-
+  </section>
 <!--main-->
 <main>
   <section id="menu">
