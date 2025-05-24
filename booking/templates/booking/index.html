@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <!--header-->
@@ -127,10 +128,47 @@
     <p class="ingredients">Baked apples, cinnamon, crunchy topping</p>
   </li>
 </ul>
-
-
   </div>
 </section>
+<!--About section-->
+<section id="about">
+  <div class="about-container">
+    <!-- Text container -->
+    <div class="about-text">
+      <h1>About Kalle's</h1>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At eligendi iure consequatur 
+        voluptas officiis cumque facere facilis totam, molestiae nulla aliquid accusantium fuga sapiente minima nesciunt dolorum voluptatum dolor aperiam?
+      </p>
+    </div>
+    
+    <!-- Carousel container -->
+    <div class="about-carousel">
+      <button class="carousel-btn left"><i class="fa-solid fa-arrow-left"></i></button>
+      
+      <!-- Carousel Images -->
+      <div class="carousel-images">
+        <div class="carousel-image">
+            <img src="{% static 'images/chefcooking.webp' %}" alt="a chef in kitchen cooking while smiling">
+        </div>
+        <div class="carousel-image">
+            <img src="{% static 'images/burgers.webp' %}" alt="three tasty burgers ready to serve">
+        </div>
+        <div class="carousel-image">
+            <img src="{% static 'images/pasta.webp' %}" alt="A delicous pasta ready to eat">
+        </div>
+        <div class="carousel-image">
+            <img src="{% static 'images/pizza.webp' %}" alt="A freshly baked pizza on a plate, ready to eat, with a warm fire burning in the background, creating a cozy atmosphere.">
+        </div>
+        <div class="carousel-image">
+            <img src="{% static 'images/kallesrestaurant.webp' %}" alt="Cozy and inviting atmosphere in a restaurant with comfortable seating and warm lighting.">
+        </div>
+      </div>
+
+      <button class="carousel-btn right"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+</section>
+
 
 </main>
   <!-- Footer / contact section -->
