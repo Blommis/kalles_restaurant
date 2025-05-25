@@ -30,7 +30,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-aoao3l6t993*$fna15stm_u(p1qbk)7vhs(skocqfs&#8#f$r5'
 SECRET_KEY = os.environ.get("SECRET_KEY")
-
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
