@@ -13,12 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-if os.path.isfile('env.py'): # This file does not exist on the deployed version
-    import env
-
-
-
-
+if os.path.isfile('env.py'):  # File does not exist on the deployed version
+    import env  # noqa: F401.
+    
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +25,9 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-aoao3l6t993*$fna15stm_u(p1qbk)7vhs(skocqfs&#8#f$r5'
+SECRET_KEY = (
+    'django-insecure-aoao3l6t993*$fna15stm_u(p1qbk)7vhs(skocqfs&#8#f$r5'
+    )
 SECRET_KEY = os.environ.get("SECRET_KEY")
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
@@ -100,10 +99,7 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 #    }
 # }
 
-DATABASES = {
-'default':
-dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+DATABASES = {'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 
 
 # Password validation
@@ -111,16 +107,20 @@ dj_database_url.parse(os.environ.get("DATABASE_URL"))
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation. \
+            UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation. \
+            MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation. \
+            CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation. \
+            NumericPasswordValidator',
     },
 ]
 
@@ -141,8 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
