@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Initiera kartan när API-laddningen är klar
+  
 function initMap() { 
     let options ={ 
         zoom:8, 
@@ -39,13 +39,13 @@ function initMap() {
     });
 };
 
-
+// to make sure Navbar collapses in mobile device
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".navbar-collapse .nav-link").forEach((link) => {
         link.addEventListener("click", function () {
             let navbarCollapse = document.querySelector(".navbar-collapse");
             let bsCollapse = new bootstrap.Collapse(navbarCollapse); 
-            bsCollapse.hide(); // Stänger menyn när en länk klickas
+            bsCollapse.hide(); 
         });
     });
 });
