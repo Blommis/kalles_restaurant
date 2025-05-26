@@ -15,7 +15,6 @@ import os
 import dj_database_url
 if os.path.isfile('env.py'):  # File does not exist on the deployed version
     import env  # noqa: F401.
-    
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,8 +34,7 @@ GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['.herokuapp.com',
-                 '.127.0.0.1',]
+ALLOWED_HOSTS = ['.herokuapp.com', '.127.0.0.1', ]
 
 
 # Application definition
@@ -141,7 +139,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
