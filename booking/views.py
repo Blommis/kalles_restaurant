@@ -12,6 +12,23 @@ def index(request):
 
 
 def make_booking(request):
+    """
+    Handle table booking submission via POST request.
+
+    **Process**
+
+    - Retrieves form data: name, date, time, and number of guests.
+    - Validates the date format; if invalid, returns an error message.
+    - Checks how many bookings already exist for the selected date and time.
+      If 3 or more bookings exist, the time slot is considered fully booked.
+    - If valid, creates a new Reservation object and displays a success message
+      including booking details and a unique booking reference.
+    - If data is missing or an error occurs, displays a generic error message.
+
+    **Redirects to:**
+
+    :view:`booking:reservation_list`
+    """
     if request.method == 'POST':
         name = request.POST.get('name')
         date_str = request.POST.get('date')
@@ -91,6 +108,26 @@ class ReservationListView(ListView):
         return available_times
 
     def get_context_data(self, **kwargs):
+        """
+        Add context data for reservation details.
+
+        **Context**
+
+        ``date``
+        The selected date from the request's GET parameters.
+
+        ``today``
+        Today's date in ISO format.
+
+        ``selected_date``
+        The user-selected date.
+
+        ``fully_booked_dates``
+        List of fully booked dates.
+
+        **Template:**
+        :template:`booking/reservation_list.html`
+        """
         context = super().get_context_data(**kwargs)
         today = date.today()
         context['date'] = self.request.GET.get('date', '')
@@ -108,6 +145,18 @@ class ReservationListView(ListView):
 
 
 def cancel_reservation(request):
+    """
+     Cancels a reservation based on the provided booking reference number.
+
+    **POST Parameters:**
+    - booking_code: The unique reference number for the reservation.
+
+    - If the reservation exists, it is deleted and a success message is shown.
+    - If not, an error message is displayed to the user.
+
+    Redirects to the reservation list page after processing.
+    """
+
     if request.method == 'POST':
         reservationnumber = request.POST.get('booking_code')
         try:
