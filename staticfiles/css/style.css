@@ -29,6 +29,7 @@ h1, h2, h3{
 .headingheader{
   color: red;
 }
+
 #headerindex {
   position: relative;
   background-image: url('/static/images/introductionimage.webp');
