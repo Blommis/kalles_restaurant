@@ -1,9 +1,5 @@
 .venv/
 env.py
 booking/fixtures/
-<<<<<<< HEAD
-=======
-/staticfiles/
->>>>>>> 53d6b2d (Initial commit)
 
 
