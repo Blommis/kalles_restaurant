@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+/* global google, bootstrap */ // Declaring google and bootstrap as global since they are loaded via external scripts in the HTML
 document.addEventListener("DOMContentLoaded", function () {
     const carousel = document.querySelector(".carousel-images");
     const images = document.querySelectorAll(".carousel-image");
@@ -29,7 +31,7 @@ function initMap() {
         zoom:8, 
         center:{lat: 42.3601, lng:-71.0589}
      }
-
+     // 'google' is a global object provided by the Google Maps API script
     let map = new google.maps.Map(document.getElementById('map'), options);
 
     const marker = new google.maps.Marker({
@@ -44,6 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".navbar-collapse .nav-link").forEach((link) => {
         link.addEventListener("click", function () {
             let navbarCollapse = document.querySelector(".navbar-collapse");
+
+            // 'bootstrap' is a global object provided by the Bootstrap JS script
             let bsCollapse = new bootstrap.Collapse(navbarCollapse); 
             bsCollapse.hide(); 
         });
