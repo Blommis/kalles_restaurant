@@ -164,9 +164,9 @@ def cancel_reservation(request):
         try:
             UUID(reservationnumber)
         except ValueError:
-            messages.error(request, "The reference number you entered seems to be incorrect. Please check it and try again.")
+            messages.error(request, "Invalid reference-id. Please try again.")
             return redirect('booking:reservation_list')
-        
+
         try:
             reservation = Reservation.objects.get(
                 booking_code=reservationnumber

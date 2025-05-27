@@ -30,7 +30,7 @@ class ReservationFormTests(TestCase):
             'name': 'Jane',
             'date': date.today().isoformat(),
             'time': '19:00',
-            'guests': ''  
+            'guests': ''
         }
         form = ReservationForm(data=form_data)
         self.assertFalse(form.is_valid())

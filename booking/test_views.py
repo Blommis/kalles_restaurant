@@ -18,7 +18,7 @@ class BookingTests(TestCase):
         """
         Test making a valid booking.
         """
-        # make a POST request to create a reservtion 
+        # make a POST request to create a reservtion
         response = self.client.post(self.url_make_booking, {
             'name': 'John Doe',
             'date': '2025-05-30',
