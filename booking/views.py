@@ -27,7 +27,7 @@ def make_booking(request):
         # Kontrollera antal bokningar för det datum + tid
         count = Reservation.objects.filter(date=date_obj, time=time).count()
         if count >= 3:
-            messages.error(request, 
+            messages.error(request,
                            f"Sorry, {time} on {date_str} is fully booked.")
             return redirect('booking:reservation_list')
 
@@ -43,7 +43,7 @@ def make_booking(request):
                 f"Your booking reference is: {reservation.booking_code}."
             )
             messages.success(request, msg)
-            return redirect('booking:reservation_list')       
+            return redirect('booking:reservation_list')
         messages.error(request, 'Something went wrong, please try again.')
         return redirect('booking:reservation_list')
 
@@ -52,7 +52,7 @@ class ReservationListView(ListView):
     model = Reservation
     template_name = 'booking/reservation_list.html'
     context_object_name = 'reservations'
-    
+
     def get_queryset(self):
         """
     Display available reservation times for a selected date.
@@ -118,7 +118,7 @@ def cancel_reservation(request):
             messages.success(request, "Reservation has been canceled")
         except Reservation.DoesNotExist:
             messages.error(
-                request, 
+                request,
                 "No reservation were found with the reference number"
             )
 
