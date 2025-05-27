@@ -8,7 +8,7 @@
 <form method="get" action="{% url 'booking:reservation_list' %}" id="reserve-form">
     <h1>Reserve a table</h1>
     <label for="date">Select Date:</label>
-    <input type="date" name="date" value="{{ date }}" min="{{ today }}" required>
+    <input type="date" name="date" id="date" value="{{ date }}" min="{{ today }}" required>
     <button type="submit">Show Available Times</button>
 </form>
 
