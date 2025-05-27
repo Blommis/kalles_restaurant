@@ -15,7 +15,7 @@ import os
 import sys
 import dj_database_url
 if os.path.isfile('env.py'):  # File does not exist on the deployed version
-    import env  # noqa: F401.
+    import env  # noqa
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
