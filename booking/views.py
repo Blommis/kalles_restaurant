@@ -1,3 +1,4 @@
+from uuid import UUID
 from django.shortcuts import render, redirect
 from datetime import datetime, date
 from django.views.generic import ListView
@@ -56,7 +57,8 @@ def make_booking(request):
                 guests=guests
             )
             msg = (
-                f"For {name} on {date_str} at {time} for {guests} guests. "
+                "Confirmed reservation:"
+                f" for {name}, {date_str} at {time} for {guests} guests. "
                 f"Your booking reference is: {reservation.booking_code}."
             )
             messages.success(request, msg)
@@ -159,6 +161,12 @@ def cancel_reservation(request):
 
     if request.method == 'POST':
         reservationnumber = request.POST.get('booking_code')
+        try:
+            UUID(reservationnumber)
+        except ValueError:
+            messages.error(request, "The reference number you entered seems to be incorrect. Please check it and try again.")
+            return redirect('booking:reservation_list')
+        
         try:
             reservation = Reservation.objects.get(
                 booking_code=reservationnumber
