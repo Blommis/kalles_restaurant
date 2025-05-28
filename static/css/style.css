@@ -67,7 +67,7 @@ h1, h2, h3{
 #menu{
     padding-top: 70px;
 }
-#menu h1{
+#menu h2{
     margin-top: 50px;
     text-align: center;
     font-size: 3rem;
@@ -131,7 +131,7 @@ h1, h2, h3{
   max-width: 500px; 
 }
 
-.about-text h1 {
+.about-text h2 {
   font-size: 2.5rem;
   margin-bottom: 20px;
   color: white;
