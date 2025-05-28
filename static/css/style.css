@@ -58,10 +58,13 @@ h1, h2, h3{
   text-align: center;
   color: white;
 }
+.headingheader {
+  font-size: 2.5rem; 
+}
 .introduction-text{
   margin: 0 auto;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 /*Menu*/
 #menu{
@@ -89,6 +92,9 @@ h1, h2, h3{
   padding: 1rem;
   border-radius: 8px;
   background-color: #fffbee;
+}
+.menu-items li h2 {
+  text-align: left;
 }
 
 .price {
