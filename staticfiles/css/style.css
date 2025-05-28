@@ -58,6 +58,10 @@ h1, h2, h3{
   text-align: center;
   color: white;
 }
+#headerindex h1 {
+  font-size: 2.5rem;
+}
+
 .headingheader {
   font-size: 2.5rem; 
 }
@@ -93,8 +97,10 @@ h1, h2, h3{
   border-radius: 8px;
   background-color: #fffbee;
 }
-.menu-items li h2 {
+.menu-items li h3 {
   text-align: left;
+  margin-left: 0;
+  font-size: 2rem;
 }
 
 .price {
