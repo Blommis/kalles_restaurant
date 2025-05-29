@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
     const totalImages = images.length;
 
-    function updateCarousel() {
+    const updateCarousel = function () {
       const translateX = -currentIndex * 100;
       carousel.style.transform = `translateX(${translateX}%)`;
-    }
+    };
 
     btnLeft.addEventListener("click", function () {
       currentIndex = (currentIndex - 1 + totalImages) % totalImages;
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-
+// Code inspiration taken from Googles own recommendation. more info in README
 async function initMap() {
   const mapElement = document.getElementById("map");
   if (!mapElement) return;
