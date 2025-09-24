@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5" id="account">
+  <div class="row g-4 align-items-start">
+    <!-- Intro / Copy -->
+    <div class="col-lg-6">
+      <h1 class="h3 mb-3">{% trans "Sign In" %}</h1>
+      <p class="mb-3">
+        {% blocktrans %}
+          Welcome back to Kalle's! Log in to manage your bookings and keep your table history in one place.
+        {% endblocktrans %}
+      </p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <form class="login" method="POST" action="{% url 'account_login' %}" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label for="{{ form.login.id_for_label }}" class="form-label">
+                {{ form.login.label|default:_("Email or Username") }}
+              </label>
+              <input
+                type="text"
+                name="{{ form.login.html_name }}"
+                id="{{ form.login.id_for_label }}"
+                value="{{ form.login.value|default_if_none:'' }}"
+                class="form-control{% if form.login.errors %} is-invalid{% endif %}"
+                autocomplete="username"
+                required
+              >
+              {% if form.login.errors %}
+                <div class="invalid-feedback">
+                  {{ form.login.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="{{ form.password.id_for_label }}" class="form-label">
+                {{ form.password.label|default:_("Password") }}
+              </label>
+              <input
+                type="password"
+                name="{{ form.password.html_name }}"
+                id="{{ form.password.id_for_label }}"
+                class="form-control{% if form.password.errors %} is-invalid{% endif %}"
+                autocomplete="current-password"
+                required
+              >
+              {% if form.password.errors %}
+                <div class="invalid-feedback">
+                  {{ form.password.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+            {% endif %}
+
+            <div class="d-flex justify-content-between align-items-center">
+              <a class="small" href="{% url 'account_reset_password' %}">
+                {% trans "Forgot Password?" %}
+              </a>
+              <button class="btn btn-primary" type="submit">
+                {% trans "Sign In" %}
+              </button>
+            </div>
+          </form>
+
+          <hr class="my-4">
+
+          <div class="text-center small">
+            {% blocktrans %}New here? <a href="{{ signup_url }}">Create an account</a>.{% endblocktrans %}
+            {# Ingen "No email verification required."-text #}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
