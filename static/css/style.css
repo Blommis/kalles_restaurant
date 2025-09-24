@@ -17,6 +17,9 @@ h1, h2, h3{
     font-family: var(--secondary-font);
 }
 
+main {
+  padding-top: 70px;
+}
 /*Navbar*/
 .navbar-brand .nav-header {
   color: red;
@@ -263,7 +266,6 @@ form button:hover {
 .reservation-message input[type="text"] {
     margin-top: 10px;
 }
-
 
 /*Footer*/
 #footer{
