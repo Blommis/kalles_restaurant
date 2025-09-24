@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+    <h1> Hi {{ user.get_full_name|default:user.username }},</h1>
+    <h2>Here you can see, change, or cancel your reservations.</h2>
+  <h3 class="h3 mb-4">My reservations</h3>
+
+   {% if messages %}
+  {% for message in messages %}
+    {% if "booking" in message.tags %}
+      <div class="reservation-message">
+        <div class="alert alert-{{ message.tags }}">
+          {{ message|safe }}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+  {% if reservations %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Name</th><th>Date</th><th>Time</th><th>Guests</th><th>Reference</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in reservations %}
+          <tr>
+            <td>{{ r.name }}</td>
+            <td>{{ r.date }}</td>
+            <td>{{ r.time|time:"H:i" }}</td>
+            <td>{{ r.guests }}</td>
+            <td><code>{{ r.booking_code }}</code></td>
+            <td>
+              <form action="{% url 'booking:cancel_reservation' %}" method="post" class="m-0">
+                {% csrf_token %}
+                <input type="hidden" name="booking_code" value="{{ r.booking_code }}">
+                <button class="btn btn-sm btn-outline-danger" type="submit">Cancel</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>You have no reservations yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
