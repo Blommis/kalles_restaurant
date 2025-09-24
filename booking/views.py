@@ -5,6 +5,9 @@ from django.views.generic import ListView
 from .models import Reservation
 from django.contrib import messages
 from django.db.models import Count
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 # Create your views here.
 
 
@@ -12,6 +15,7 @@ def index(request):
     return render(request, 'booking/index.html')
 
 
+@login_required(login_url='account_login')
 def make_booking(request):
     """
     Handle table booking submission via POST request.
@@ -31,7 +35,7 @@ def make_booking(request):
     :view:`booking:reservation_list`
     """
     if request.method == 'POST':
-        name = request.POST.get('name')
+        input_name = request.POST.get('name')
         date_str = request.POST.get('date')
         time = request.POST.get('time')
         guests = request.POST.get('guests')
@@ -42,26 +46,37 @@ def make_booking(request):
             messages.error(request, 'Invalid date.')
             return redirect('booking:reservation_list')
 
-        # Kontrollera antal bokningar för det datum + tid
+        # max 3 bookings per time
         count = Reservation.objects.filter(date=date_obj, time=time).count()
         if count >= 3:
             messages.error(request,
                            f"Sorry, {time} on {date_str} is fully booked.")
             return redirect('booking:reservation_list')
 
-        if name and time and guests:
+        if time and guests:
+            if input_name.strip():
+                display_name = input_name.strip()
+            else:
+                display_name = (request.user.get_full_name() or request.user.username)
+
             reservation = Reservation.objects.create(
-                name=name,
+                user=request.user,
+                name=display_name,
                 date=date_obj,
                 time=time,
                 guests=guests
             )
             msg = (
-                "Confirmed reservation:"
-                f" for {name}, {date_str} at {time} for {guests} guests. "
-                f"Your booking reference is: {reservation.booking_code}."
+                "Confirmed reservation:<br>"
+                f"- Name: {display_name}<br>"
+                f"- Date: {date_str}<br>"
+                f"- Time: {time}<br>"
+                f"- Guests: {guests}<br>"
+                f"- Reference: <code>{reservation.booking_code}</code><br><br>"
+                f"To see, change or cancel your reservation, visit "
+                f"<a href='{reverse('booking:my_reservations')}' style='text-decoration: underline;'>My bookings</a>."
             )
-            messages.success(request, msg)
+            messages.success(request, msg, extra_tags="booking") 
             return redirect('booking:reservation_list')
         messages.error(request, 'Something went wrong, please try again.')
         return redirect('booking:reservation_list')
@@ -145,7 +160,7 @@ class ReservationListView(ListView):
 
         return context
 
-
+@login_required(login_url='account_login')
 def cancel_reservation(request):
     """
      Cancels a reservation based on the provided booking reference number.
@@ -165,18 +180,27 @@ def cancel_reservation(request):
             UUID(reservationnumber)
         except ValueError:
             messages.error(request, "Invalid reference-id. Please try again.")
-            return redirect('booking:reservation_list')
+            return redirect('booking:my_reservations')
 
         try:
             reservation = Reservation.objects.get(
                 booking_code=reservationnumber
             )
+            if reservation.user_id != request.user.id:
+                messages.error(request, "You can only cancel your own reservations.")
+                return redirect('booking:my_reservations')
+            
             reservation.delete()
-            messages.success(request, "Reservation has been canceled")
+            messages.success(request, "Reservation has been canceled", extra_tags="booking")
         except Reservation.DoesNotExist:
             messages.error(
                 request,
                 "No reservation were found with the reference number"
             )
 
-        return redirect('booking:reservation_list')
+        return redirect('booking:my_reservations')
+
+@login_required(login_url='account_login')
+def my_reservations(request):
+    my_res = Reservation.objects.filter(user=request.user).order_by('date', 'time')
+    return render(request, 'booking/my_reservations.html', {'reservations': my_res})
