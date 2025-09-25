@@ -1,5 +1,5 @@
 from uuid import UUID
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime, date
 from django.views.generic import ListView
 from .models import Reservation
@@ -213,3 +213,53 @@ def cancel_reservation(request):
 def my_reservations(request):
     my_res = Reservation.objects.filter(user=request.user).order_by('date', 'time')
     return render(request, 'booking/my_reservations.html', {'reservations': my_res})
+
+
+@login_required(login_url='account_login')
+def update_reservation(request, booking_code):
+    reservation = get_object_or_404(Reservation, booking_code=booking_code, user=request.user)
+
+    bookings = Reservation.objects.filter(date=reservation.date).values('time').annotate(count=Count('booking_code'))
+    booked_dict = {b['time'].strftime('%H:%M'): b['count'] for b in bookings}
+
+    all_times = [
+        '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00',
+        '20:30', '21:00', '21:30', '22:00'
+    ]
+    reservation_time_str = reservation.time.strftime("%H:%M")
+    available_times = [
+        {
+            "time": t,
+            "count": booked_dict.get(t, 0),
+            "is_full": booked_dict.get(t, 0) >= 3,
+            "is_user_time": reservation_time_str == t
+        }
+        for t in all_times
+    ]
+
+    if request.method == 'POST':
+        new_time = request.POST.get('time')
+        new_date = request.POST.get('date')
+
+        count = Reservation.objects.filter(date=new_date, time=new_time).exclude(booking_code=reservation.booking_code).count()
+        if count >= 3:
+            messages.error(request, f"Sorry, {new_time} on {new_date} is fully booked.")
+            return redirect('booking:update_reservation', booking_code=booking_code)
+
+        # update info
+        reservation.name = request.POST.get('name')
+        reservation.email = request.POST.get('email')
+        reservation.phone = request.POST.get('phone')
+        reservation.date = new_date
+        reservation.time = new_time
+        reservation.guests = request.POST.get('guests')
+        reservation.save()
+
+        messages.success(request, "Reservation updated!", extra_tags="booking")
+        return redirect('booking:my_reservations')
+
+    return render(request, 'booking/update_reservation.html', {
+        'reservation': reservation,
+        'available_times': available_times
+    })
+

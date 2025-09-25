@@ -10,4 +10,5 @@ urlpatterns = [
     path('make-booking/', make_booking, name='make_booking'),
     path('cancel/', views.cancel_reservation, name='cancel_reservation'),
     path('my/', views.my_reservations, name='my_reservations'),
+    path('update/<uuid:booking_code>/', views.update_reservation, name='update_reservation')
 ]
