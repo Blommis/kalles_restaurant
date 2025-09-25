@@ -26,8 +26,17 @@
         <h2>Available Times for {{ selected_date }}:</h2>
         {% csrf_token %}
     <input type="hidden" name="date" value="{{ selected_date }}">
-    {% for time in reservations %}
-        <input type="radio" name="time" value="{{ time }}" required>{{ time }}
+    {% for slot in reservations %}
+      {% if slot.is_full %}
+        <label style="text-decoration: line-through; color: gray;"></label>
+        <input type="radio" disabled> {{ slot.time }} (Full)
+        </label>
+      {% else %}
+        <label>
+          <input type="radio" name="time" value="{{ slot.time }}" required>
+          {{ slot.time }}
+        </label>
+        {% endif %}
     {% endfor %}
     <input type="text" name="name" id="name" placeholder="Your Name" required>
     <input type="number" name="guests" min="1" max="10" placeholder="Number of Guests" required>

@@ -102,7 +102,7 @@ class ReservationListView(ListView):
     """
 
         self.selected_date = self.request.GET.get('date')
-        available_times = []
+        times_status = []
 
         if self.selected_date:
             try:
@@ -112,17 +112,20 @@ class ReservationListView(ListView):
             except ValueError:
                 return []
 
-            booked_times = Reservation.objects.filter(
+            bookings = Reservation.objects.filter(
                 date=selected_date_obj
-                ).values_list('time', flat=True)
+                ).values('time').annotate(count=Count('booking_code'))
+            booked_dict = {b['time'].strftime('%H:%M'): b['count'] for b in bookings}
             all_times = [
                 '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00',
                 '20:30', '21:00', '21:30', '22:00'
                 ]
-            available_times = [
-                time for time in all_times if time not in booked_times
-                ]
-        return available_times
+            for t in all_times:
+                times_status.append({
+                    "time": t,
+                    "is_full": booked_dict.get(t, 0) >= 3
+                })
+        return times_status
 
     def get_context_data(self, **kwargs):
         """
