@@ -220,6 +220,12 @@ form {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+#cancel-my-booking{
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
 form input[type="text"],
 form input[type="number"],
 form input[type="date"],
