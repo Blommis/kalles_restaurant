@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-center">Edit Reservation</h1>
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} text-center">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{ reservation.name }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" value="{{ reservation.email }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone</label>
+      <input type="tel" class="form-control" id="phone" name="phone" value="{{ reservation.phone }}" pattern="[0-9]{7,15}" required>
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input type="date" class="form-control" id="date" name="date" value="{{ reservation.date }}" required>
+    </div>
+  <div class="mb-3">
+  <label class="form-label">Time</label><br>
+  {% for slot in available_times %}
+    {% if slot.is_full and not slot.is_user_time %}
+      
+    {% else %}
+      <label>
+        <input type="radio" name="time" value="{{ slot.time }}" 
+          {% if slot.is_user_time %}checked{% endif %}>
+        {{ slot.time }}
+      </label>
+    {% endif %}
+  {% endfor %}
+</div>
+    <div class="mb-3">
+      <label for="guests" class="form-label">Guests</label>
+      <input type="number" class="form-control" id="guests" name="guests" value="{{ reservation.guests }}" min="1" max="10" required>
+    </div>
+    <button type="submit" class="btn btn-success">Save changes</button>
+    <a href="{% url 'booking:my_reservations' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}
