@@ -36,6 +36,8 @@ def make_booking(request):
     """
     if request.method == 'POST':
         input_name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
         date_str = request.POST.get('date')
         time = request.POST.get('time')
         guests = request.POST.get('guests')
@@ -62,6 +64,8 @@ def make_booking(request):
             reservation = Reservation.objects.create(
                 user=request.user,
                 name=display_name,
+                email=email,
+                phone=phone,
                 date=date_obj,
                 time=time,
                 guests=guests
@@ -69,6 +73,8 @@ def make_booking(request):
             msg = (
                 "Confirmed reservation:<br>"
                 f"- Name: {display_name}<br>"
+                f"- Email: {email}<br>"
+                f"- Phone: {phone}<br>"
                 f"- Date: {date_str}<br>"
                 f"- Time: {time}<br>"
                 f"- Guests: {guests}<br>"
