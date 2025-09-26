@@ -239,7 +239,18 @@ def update_reservation(request, booking_code):
 
     if request.method == 'POST':
         new_time = request.POST.get('time')
-        new_date = request.POST.get('date')
+        new_date_str = request.POST.get('date')
+        
+        try:
+            new_date = datetime.strptime(new_date_str, "%Y-%m-%d").date()
+        except ValueError:
+            messages.error(request, "Invalid date format.")
+            return redirect('booking:update_reservation', booking_code=booking_code)
+        
+        # block past dates
+        if new_date < date.today():
+            messages.error(request, "You cannot book a date in the past.")
+            return redirect('booking:update_reservation', booking_code=booking_code)
 
         count = Reservation.objects.filter(date=new_date, time=new_time).exclude(booking_code=reservation.booking_code).count()
         if count >= 3:
@@ -260,6 +271,7 @@ def update_reservation(request, booking_code):
 
     return render(request, 'booking/update_reservation.html', {
         'reservation': reservation,
-        'available_times': available_times
+        'available_times': available_times,
+        'today': date.today().isoformat(),
     })
 
