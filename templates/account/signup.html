@@ -1,21 +1,137 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock head_title %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+<div class="container py-5" id="account">
+  <div class="row g-4 align-items-start">
+    <!-- Intro / Copy -->
+    <div class="col-lg-6">
+      <h1 class="h3 mb-3">{% trans "Create Account" %}</h1>
+      <p class="mb-3">
+        {% blocktrans %}
+          Join Kalle's and make booking easier than ever.  
+          With your account, you can manage reservations, update details, and never miss your table.
+        {% endblocktrans %}
+      </p>
+      <p class="small">
+        {% blocktrans %}Already have an account? <a href="{{ login_url }}">Sign in here</a>.{% endblocktrans %}
+      </p>
+    </div>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+    <!-- Form Card -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}" novalidate>
+            {% csrf_token %}
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+            <!-- Username -->
+            {% if form.username %}
+            <div class="mb-3">
+              <label for="{{ form.username.id_for_label }}" class="form-label">
+                {{ form.username.label|default:_("Username") }}
+              </label>
+              <input
+                type="text"
+                name="{{ form.username.html_name }}"
+                id="{{ form.username.id_for_label }}"
+                value="{{ form.username.value|default_if_none:'' }}"
+                class="form-control{% if form.username.errors %} is-invalid{% endif %}"
+                autocomplete="username"
+                required
+              >
+              {% if form.username.errors %}
+                <div class="invalid-feedback">
+                  {{ form.username.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+            {% endif %}
 
-{% endblock content %}
+            <!-- Email -->
+            {% if form.email %}
+            <div class="mb-3">
+              <label for="{{ form.email.id_for_label }}" class="form-label">
+                {{ form.email.label|default:_("Email") }}
+              </label>
+              <input
+                type="email"
+                name="{{ form.email.html_name }}"
+                id="{{ form.email.id_for_label }}"
+                value="{{ form.email.value|default_if_none:'' }}"
+                class="form-control{% if form.email.errors %} is-invalid{% endif %}"
+                autocomplete="email"
+                required
+              >
+              {% if form.email.errors %}
+                <div class="invalid-feedback">
+                  {{ form.email.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="{{ form.password1.id_for_label }}" class="form-label">
+                {{ form.password1.label|default:_("Password") }}
+              </label>
+              <input
+                type="password"
+                name="{{ form.password1.html_name }}"
+                id="{{ form.password1.id_for_label }}"
+                class="form-control{% if form.password1.errors %} is-invalid{% endif %}"
+                autocomplete="new-password"
+                required
+              >
+              {% if form.password1.errors %}
+                <div class="invalid-feedback">
+                  {{ form.password1.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-3">
+              <label for="{{ form.password2.id_for_label }}" class="form-label">
+                {{ form.password2.label|default:_("Confirm Password") }}
+              </label>
+              <input
+                type="password"
+                name="{{ form.password2.html_name }}"
+                id="{{ form.password2.id_for_label }}"
+                class="form-control{% if form.password2.errors %} is-invalid{% endif %}"
+                autocomplete="new-password"
+                required
+              >
+              {% if form.password2.errors %}
+                <div class="invalid-feedback">
+                  {{ form.password2.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+            {% endif %}
+
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary" type="submit">
+                {% trans "Sign Up" %}
+              </button>
+            </div>
+          </form>
+
+          <hr class="my-4">
+
+          <div class="text-center small">
+            {% blocktrans %}Already a member? <a href="{{ login_url }}">Sign in</a>.{% endblocktrans %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
