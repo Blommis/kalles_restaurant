@@ -25,4 +25,5 @@ urlpatterns = [
     path('', booking_views.index, name='index'),
     path('reservations/',
          include(('booking.urls', 'booking'), namespace='booking')),
+    
 ]

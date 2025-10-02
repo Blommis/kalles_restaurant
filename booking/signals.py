@@ -10,9 +10,11 @@ def send_welcome_email(sender, instance, created, **kwargs):
     if created:  # only when new user creates
         subject = "Welcome to Kalle's Restaurant!"
         message = (
-            f"Hi {instance.username},\n\n"
-            "Thanks for signing up at Kalle's Restaurant.\n"
-            "You can now manage your bookings, update details, and never miss your table!\n\n"
-            "– Kalle's Team"
+            f"Hi {instance.username}"
+            "Thank you for signing up at Kalle's Restaurant!"
+            "You can now manage your bookings, update details, and never miss your table."
+            "We look forward to seeing you soon!"
+            "Best regards,"
+            "Kalle's team"
         )
         send_mail(subject, message, settings.EMAIL_HOST_USER, [instance.email])
