@@ -7,6 +7,10 @@ from django.contrib import messages
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.conf import settings
+
 
 # Create your views here.
 
@@ -275,3 +279,13 @@ def update_reservation(request, booking_code):
         'today': date.today().isoformat(),
     })
 
+
+def test_email(request):
+    subject = "Test from Kalles Restaurant"
+    message = "Hi! This is a testmail"
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = ["blomquist799@gmail.com"]
+
+    send_mail(subject, message, from_email, recipient_list)
+
+    return HttpResponse("Mail sent! check your inbox!")
