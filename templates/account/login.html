@@ -13,9 +13,11 @@
       <p class="mb-3">
         {% blocktrans %}
           Welcome back to Kalle's! Log in to manage your bookings and keep your table history in one place.
-        {% endblocktrans %}
+        {% endblocktrans %} <br><br>
+        {% blocktrans %}New here? <a href="{{ signup_url }}">Create an account</a>.{% endblocktrans %}
       </p>
     </div>
+    
 
     <!-- Form Card -->
     <div class="col-lg-6">
@@ -77,9 +79,8 @@
 
           <hr class="my-4">
 
-          <div class="text-center small">
-            {% blocktrans %}New here? <a href="{{ signup_url }}">Create an account</a>.{% endblocktrans %}
-            {# Ingen "No email verification required."-text #}
+          <div class="text-center small mt-3">
+            <a href="{% url 'account_reset_password' %}">Forgot password?</a>
           </div>
         </div>
       </div>
