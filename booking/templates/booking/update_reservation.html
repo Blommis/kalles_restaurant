@@ -11,6 +11,7 @@
 {% endif %}
   <form method="post">
     {% csrf_token %}
+    
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
       <input type="text" class="form-control" id="name" name="name" value="{{ reservation.name }}" required>
@@ -47,8 +48,18 @@
     </div>
    <div class="d-grid gap-2" style="max-width: 200px; margin: 0 auto;">
     <button type="submit" class="btn btn-success">Save changes</button>
-    <a href="{% url 'booking:my_reservations' %}" class="btn btn-secondary">Cancel</a>
-    </div>
   </form>
+     <!-- Cancel (delete) -->
+  <form action="{% url 'booking:cancel_reservation' %}" method="post" class="d-block m-0 p-0">
+    {% csrf_token %}
+    <input type="hidden" name="booking_code" value="{{ reservation.booking_code }}">
+    <button type="submit" class="btn btn-danger w-100 mb-0">
+      Cancel reservation
+    </button>
+  </form>
+  <!--back to my reservationshtml-->
+    <div class="text-center">
+    <a href="{% url 'booking:my_reservations' %}"> Go back</a>
+    </div>
 </div>
 {% endblock %}

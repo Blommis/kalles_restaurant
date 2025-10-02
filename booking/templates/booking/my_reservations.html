@@ -39,23 +39,12 @@
         <td>{{ r.guests }}</td>
         <td><code>{{ r.booking_code }}</code></td>
       <td class="text-nowrap">
-  <span class="me-2">
-    <a href="{% url 'booking:update_reservation' r.booking_code %}" 
-       class="text-primary text-decoration-none">
-      Edit
-    </a>
-  </span>
-  <span>
-    <form action="{% url 'booking:cancel_reservation' %}" 
-          method="post" style="display:inline;" id="cancel-my-booking">
-      {% csrf_token %}
-      <input type="hidden" name="booking_code" value="{{ r.booking_code }}">
-      <button type="submit" 
-              class="btn btn-link text-danger text-decoration-none align-baseline">
-        Cancel
-      </button>
-    </form>
-  </span>
+  <!-- Edit icon -->
+  <a href="{% url 'booking:update_reservation' r.booking_code %}" 
+     class="text-primary text-decoration-none me-3"
+     aria-label="Edit reservation">
+    <i class="fa-solid fa-pencil"></i>
+  </a>
 </td>
       </tr>
       {% endfor %}
@@ -75,17 +64,13 @@
       <p><strong>Time:</strong> {{ r.time|time:"H:i" }}</p>
       <p><strong>Guests:</strong> {{ r.guests }}</p>
       <p><strong>Ref:</strong> <code>{{ r.booking_code }}</code></p>
-   <form action="{% url 'booking:cancel_reservation' %}" method="post" class="m-0">
-  {% csrf_token %}
-  <a href="{% url 'booking:update_reservation' r.booking_code %}" 
-     class="btn btn-sm btn-outline-primary w-100 mb-2">
-    Edit
-  </a>
-  <input type="hidden" name="booking_code" value="{{ r.booking_code }}">
-  <button type="submit" class="btn btn-sm btn-outline-danger w-100">
-    Cancel
-  </button>
-</form>
+   <td class="text-nowrap">
+      <a href="{% url 'booking:update_reservation' r.booking_code %}" 
+     class="text-primary text-decoration-none me-2"
+     title="Edit reservation">
+    <i class="fa-solid fa-pencil"></i> Manage booking
+      </a>
+    </td>
     </div>
   </div>
   {% endfor %}
