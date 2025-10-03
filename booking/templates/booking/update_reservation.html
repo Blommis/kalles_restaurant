@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container py-5">
-  <h1 class="text-center">Edit Reservation</h1>
+  <h1 class="text-center">Manage reservation</h1>
   {% if messages %}
   {% for message in messages %}
     <div class="alert alert-{{ message.tags }} text-center">
@@ -18,7 +18,7 @@
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" name="email" value="{{ reservation.email }}" required>
+      <input type="email" class="form-control bg-light text-muted" id="email" name="email" value="{{ reservation.email }}" readonly>
     </div>
     <div class="mb-3">
       <label for="phone" class="form-label">Phone</label>
