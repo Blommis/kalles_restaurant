@@ -50,13 +50,28 @@
     <button type="submit" class="btn btn-success">Save changes</button>
   </form>
      <!-- Cancel (delete) -->
-  <form action="{% url 'booking:cancel_reservation' %}" method="post" class="d-block m-0 p-0">
+  <form action="{% url 'booking:cancel_reservation' %}" method="post" class="cancel-form d-block m-0 p-0">
     {% csrf_token %}
     <input type="hidden" name="booking_code" value="{{ reservation.booking_code }}">
-    <button type="submit" class="btn btn-danger w-100 mb-0">
+  </form>
+
+  <!--button supposed to be ouside the form to make sure the modal works-->
+    <button type="submit" class="btn btn-danger w-100 mb-0" data-bs-toggle="modal" data-bs-target="#cancelModal">
       Cancel reservation
     </button>
-  </form>
+
+  <!-- Cancel confirmation modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p>Are you sure you want to cancel this reservation?</p>
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" id="confirmCancelBtn">Yes, cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
   <!--back to my reservationshtml-->
     <div class="text-center">
     <a href="{% url 'booking:my_reservations' %}"> Go back</a>
