@@ -209,10 +209,24 @@ def cancel_reservation(request):
 
         return redirect('booking:my_reservations')
 
+
 @login_required(login_url='account_login')
 def my_reservations(request):
-    my_res = Reservation.objects.filter(user=request.user).order_by('date', 'time')
-    return render(request, 'booking/my_reservations.html', {'reservations': my_res})
+    today = date.today()
+    upcoming_reservations = Reservation.objects.filter(
+        user=request.user,
+        date__gte=today
+    ).order_by('date', 'time')
+
+    past_reservations = Reservation.objects.filter(
+        user=request.user,
+        date__lt=today
+    ).order_by('-date', '-time')
+
+    return render(request, 'booking/my_reservations.html', {
+        'upcoming_reservations': upcoming_reservations,
+        'past_reservations': past_reservations,
+    })
 
 
 @login_required(login_url='account_login')

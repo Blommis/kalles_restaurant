@@ -18,7 +18,9 @@
   {% endfor %}
 {% endif %}
 
-  {% if reservations %}
+<!--UPCOMING RESERVATIONS-->
+<h3>Upcoming reservations</h3>
+  {% if upcoming_reservations %}
   <!-- table on bigger screens -->
 <div class="table-responsive d-none d-md-block">
   <table class="table table-striped table-hover align-middle">
@@ -29,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for r in reservations %}
+      {% for r in upcoming_reservations %}
       <tr>
         <td>{{ r.name }}</td>
         <td>{{ r.email }}</td>
@@ -54,7 +56,7 @@
 
 <!-- table on smaller screens -->
 <div class="d-block d-md-none">
-  {% for r in reservations %}
+  {% for r in upcoming_reservations %}
   <div class="card mb-3">
     <div class="card-body">
       <p><strong>Name:</strong> {{ r.name }}</p>
@@ -74,10 +76,23 @@
     </div>
   </div>
   {% endfor %}
-</div>
-
+  </div>
   {% else %}
-    <p>You have no reservations yet.</p>
+    <p class="text-muted">You have no upcoming reservations.</p>
+  {% endif %}
+
+  <!-- PAST RESERVATIONS -->
+  <h3 class="mt-5">Past reservations</h3>
+  {% if past_reservations %}
+    <ul class="list-group">
+      {% for r in past_reservations %}
+        <li class="list-group-item">
+          {{ r.date }} {{ r.time|time:"H:i" }} – {{ r.guests }} guests
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No past reservations.</p>
   {% endif %}
 </div>
 {% endblock %}
