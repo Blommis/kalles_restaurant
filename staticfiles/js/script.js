@@ -66,7 +66,9 @@ document.addEventListener("DOMContentLoaded", function() {
   const confirmBtn = document.getElementById("confirmCancelBtn");
   const form = document.querySelector(".cancel-form");
 
-  confirmBtn.addEventListener("click", function() {
-    form.submit();
-  });
+  if (confirmBtn && form) {
+    confirmBtn.addEventListener("click", function() {
+      form.submit();
+    });
+  }
 });
