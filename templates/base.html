@@ -1,9 +1,5 @@
 {% load static %}
 
-{% url 'account_login' as login_url %}
-{% url 'account_signup' as signup_url %}
-{% url 'account_logout' as logout_url %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,29 +22,36 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link active" aria-current="page" href="{% url 'booking:reservation_list' %}">Booking</a>
-        <a class="nav-link" href="{% url 'index' %}#menu">Menu</a>
-        <a class="nav-link" href="{% url 'index' %}#about">About</a>
-        <a class="nav-link" href="{% url 'index' %}#footer">Contact</a>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'booking:reservation_list' %}">Booking</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}#menu">Menu</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}#about">About</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}#footer">Contact</a>
+          </li>
 
-      {% if user.is_authenticated %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'booking:my_reservations' %}">My bookings</a>
-      </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-            href="{% url 'account_signup' %}">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page" href="{% url 'account_login' %}">Login</a>
-        </li>
-        {% endif %}
-      </div>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'booking:my_reservations' %}">My bookings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+          </li>
+          {% endif %}
+        </ul>
     </div>
   </div>
   {% if user.is_authenticated %}
