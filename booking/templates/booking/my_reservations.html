@@ -66,13 +66,13 @@
       <p><strong>Time:</strong> {{ r.time|time:"H:i" }}</p>
       <p><strong>Guests:</strong> {{ r.guests }}</p>
       <p><strong>Ref:</strong> <code>{{ r.booking_code }}</code></p>
-   <td class="text-nowrap">
+   <div class="text-nowrap">
       <a href="{% url 'booking:update_reservation' r.booking_code %}" 
      class="text-primary text-decoration-none me-2"
      title="Edit reservation">
     <i class="fa-solid fa-pencil"></i> Manage booking
       </a>
-    </td>
+    </div>
     </div>
   </div>
   {% endfor %}

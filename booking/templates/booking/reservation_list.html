@@ -12,13 +12,14 @@
       <label for="date">Select Date:</label>
       <input type="date" name="date" id="date" value="{{ date }}" min="{{ today }}" required>
       <button type="submit">Show Available Times</button>
+
+  {% else %}
+    <div class="alert alert-info mb-4">
+      You need to <a href="{% url 'account_login' %}">log in</a> or 
+      <a href="{% url 'account_signup' %}">create an account</a> to book a table.
+    </div>
+  {% endif %}
 </form>
-{% else %}
-  <div class="alert alert-info mb-4">
-    You need to <a href="{% url 'account_login' %}">log in</a> or 
-    <a href="{% url 'account_signup' %}">create an account</a> to book a table.
-  </div>
-{% endif %}
 
 {% if reservations %}
   {% if user.is_authenticated %}
