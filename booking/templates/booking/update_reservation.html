@@ -48,6 +48,7 @@
     </div>
    <div class="d-grid gap-2" style="max-width: 200px; margin: 0 auto;">
     <button type="submit" class="btn btn-success">Save changes</button>
+    </div>
   </form>
      <!-- Cancel (delete) -->
   <form action="{% url 'booking:cancel_reservation' %}" method="post" class="cancel-form d-block m-0 p-0">
@@ -56,10 +57,12 @@
   </form>
 
   <!--button supposed to be ouside the form to make sure the modal works-->
-    <button type="submit" class="btn btn-danger w-100 mb-0" data-bs-toggle="modal" data-bs-target="#cancelModal">
+    <div class="text-center">
+  <button type="submit" class="btn btn-danger mb-0" data-bs-toggle="modal" data-bs-target="#cancelModal">
       Cancel reservation
     </button>
     </div>
+    
   
 
   <!-- Cancel confirmation modal -->
@@ -74,6 +77,7 @@
     </div>
   </div>
 </div>
+<br>
   <!--back to my reservationshtml-->
     <div class="text-center">
     <a href="{% url 'booking:my_reservations' %}"> Go back</a>
