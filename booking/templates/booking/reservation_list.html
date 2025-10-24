@@ -50,19 +50,15 @@
     {% endif %}
 
 {% if user.is_authenticated %}
- {% if messages %}
+ {% for message in messages %}
+  {% if "booking" in message.tags %}
   <div class="reservation-message">
-      <h3>Reservation Status</h3>
-      {% for message in messages %}
-        {% if "booking" in message.tags %}
-          <div class="alert alert-{{ message.tags }}">
-            {{ message|safe }}
-          </div>
-        {% endif %}
-      {% endfor %}
+    <h3>Reservation Status</h3>
+      <div class="alert alert-{{ message.tags }}">
+        {{ message|safe }}
+      </div>
   </div>
+      {% endif %}
+    {% endfor %}
   {% endif %}
-  {% endif %}
-
-
 {% endblock %}
